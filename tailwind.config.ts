@@ -11,6 +11,12 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        base_color: "#684a4e",
+        active_main: "#e48f99",
+        active_hover: "#cc3244",
+        session_header: "#dddedf",
+        card_header: "#452c2f",
+        bg_dark: "#28181a",
       },
     },
   },

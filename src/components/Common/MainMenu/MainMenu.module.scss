@@ -1,0 +1,33 @@
+.customSelect{
+    :global {
+         .ant-select-selector  {
+            border: none !important;
+            box-shadow: none !important; /* Loại bỏ shadow */
+        }
+        .ant-select-selection-item {
+            color: #684a4e !important;
+            font-weight: 500 !important;
+        }
+        .ant-select-selector:hover {
+            color: #cc3244 !important;
+        }
+       
+        
+    }
+}
+
+.customMenuMO {
+    :global {
+        .ant-menu-submenu-arrow {
+            color: white !important;
+        }
+        .ant-menu-submenu-title:active {
+            background: #23282d !important;
+        }
+        .ant-menu-submenu-title:focus-visible {
+            outline: none !important;    
+        }
+    }
+}
+
+
