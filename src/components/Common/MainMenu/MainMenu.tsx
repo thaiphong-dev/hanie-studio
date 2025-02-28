@@ -60,8 +60,8 @@ const MainMenu = () => {
   }, [drawerVisible]);
 
   return (
-    <Layout className="w-full h-fit fixed top-0 z-[100]">
-      <Header className="pt-[40px] lg:pt-0 bg-white w-full h-full py-[5px] !px-[20px] flex justify-center items-center ">
+    <Layout className="w-full h-fit fixed top-0 z-[100] ">
+      <Header className=" bg-white w-full h-full py-[5px] !px-[20px] flex justify-center items-center ">
         <div className="flex justify-between items-center lg:max-w-[1240px]  w-full">
           <div
             onClick={() => router.push("/")}

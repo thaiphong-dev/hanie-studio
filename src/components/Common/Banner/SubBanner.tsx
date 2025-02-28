@@ -43,12 +43,12 @@ const SubBanner: React.FC<Props> = ({
         }}
       ></div>
       <div className="text-center relative flex flex-col justify-center items-center space-y-[20px] ">
-        <p
+        <div
           className={`${raleway.className} text-white leading-[1.2] text-[30px] lg:text-[34px] font-[700] w-full px-[20px] lg:px-0 lg:w-[70%]`}
         >
           {content}
-        </p>
-        <p className="text-base_color text-[19px]">{subContent}</p>
+        </div>
+        <div className="text-base_color text-[19px]">{subContent}</div>
         {isShowButton && (
           <StyledButton
             handleClick={handleClickButton ?? (() => {})}
