@@ -3,9 +3,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
 import Banner from "@/components/Common/Banner/Banner";
 import HeadingSeperator from "@/components/Common/HeadingSeparator/HeadingSeparator";
-import InfoCard from "@/components/Cards/InfoCard";
-import ServiceCard from "@/components/Cards/ServiceCard";
-import ReviewCard from "@/components/Cards/ReviewCard";
+import InfoCard from "@/components/Common/Cards/InfoCard";
+// import ServiceCard from "@/components/Common/Cards/ServiceCard";
+import ReviewCard from "@/components/Common/Cards/ReviewCard";
 
 const UiGuide = () => {
   return (
@@ -19,7 +19,7 @@ Studio In Quy Nhon"
         isShowButton={true}
         handleClickButton={() => {}}
       />
-      <HeadingSeperator />
+      <HeadingSeperator title="lalal" />
       <div className=" flex justify-center items-center w-full px-[20px] lg:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px] w-full lg:w-[1240px] place-items-center">
           <InfoCard
@@ -46,13 +46,13 @@ Studio In Quy Nhon"
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <ServiceCard
-          imageSrc="/images/mocks/service.webp"
+          img="/images/mocks/service.webp"
           title="Lash Extension"
-          description="Elevate Your Look Instantly"
+          subTitle="Elevate Your Look Instantly"
         />
-      </div>
+      </div> */}
 
       <div>
         <ReviewCard

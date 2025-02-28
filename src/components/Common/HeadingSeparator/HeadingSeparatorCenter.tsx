@@ -5,10 +5,12 @@ interface Props {
   title?: string;
   titleCustom?: ReactNode;
 }
-const HeadingSeparator: React.FC<Props> = ({ title, titleCustom }) => {
+const HeadingSeparatorCenter: React.FC<Props> = ({ title, titleCustom }) => {
   const { t } = useTranslation();
   return (
     <div className="flex items-center space-x-[10px] lg:space-x-[20px]">
+      <div className="w-[100px] lg:w-[200px] h-[1px] bg-active_main"></div>
+
       <p className="capitalize text-[19px] text-base_color font-[600]">
         {titleCustom ? titleCustom : title ? t(title) : ""}
       </p>
@@ -17,4 +19,4 @@ const HeadingSeparator: React.FC<Props> = ({ title, titleCustom }) => {
   );
 };
 
-export default HeadingSeparator;
+export default HeadingSeparatorCenter;

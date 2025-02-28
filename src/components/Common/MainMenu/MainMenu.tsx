@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, Select } from "antd/lib";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
@@ -47,20 +47,33 @@ const MainMenu = () => {
     i18n.changeLanguage(lng);
   };
 
+  useEffect(() => {
+    if (drawerVisible) {
+      document.body.style.overflow = "hidden"; // Chặn cuộn khi mở menu
+    } else {
+      document.body.style.overflow = "auto"; // Cho phép cuộn khi đóng menu
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // Đảm bảo cuộn được bật lại khi component bị unmount
+    };
+  }, [drawerVisible]);
+
   return (
-    <Layout className="w-full h-full">
-      <Header className=" bg-white w-full h-full py-[5px] !px-[20px] flex justify-center items-center ">
+    <Layout className="w-full h-fit fixed top-0 z-[100]">
+      <Header className="pt-[40px] lg:pt-0 bg-white w-full h-full py-[5px] !px-[20px] flex justify-center items-center ">
         <div className="flex justify-between items-center lg:max-w-[1240px]  w-full">
           <div
             onClick={() => router.push("/")}
             className="relative w-[150px] aspect-video cursor-pointer"
           >
             <Image
-              src="/images/logo.webp"
+              src="/images/logo.jpg"
               alt="Logo"
               className="mr-4"
               fill
               sizes="auto"
+              objectFit="cover"
             />
           </div>
           <div className="flex items-center justify-end w-full">
@@ -183,7 +196,7 @@ const MainMenu = () => {
       </Header>
 
       <div
-        className="max-w-full h-full fixed top-0 bottom-0 left-0 z-[100] bg-[#23282d] py-[30px] px-[20px] w-[80%] lg:hidden"
+        className="max-w-full h-full fixed  top-0 bottom-0 left-0 z-[100] bg-[#23282d] py-[30px] px-[20px] w-[80%] lg:hidden"
         style={{
           transform: drawerVisible ? "translateX(0)" : "translateX(-100%)",
 
@@ -238,13 +251,16 @@ const MainMenu = () => {
           )}
         </Menu>
       </div>
+
+      {/* Lớp overlay */}
       <div
         style={{
           opacity: drawerVisible ? 1 : 0,
           visibility: drawerVisible ? "visible" : "hidden",
           transition: "all 0.3s ease",
         }}
-        className="fixed top-0 right-0 bottom-0 left-0 pointer-events-none bg-black/50 z-[99]"
+        onClick={onClose}
+        className="fixed top-0 right-0 bottom-0 left-0  bg-black/50 z-[99]"
       ></div>
     </Layout>
   );

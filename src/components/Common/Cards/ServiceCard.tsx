@@ -1,33 +1,40 @@
 import Image from "next/image";
 import { Raleway } from "next/font/google";
+import { useRouter } from "next/router";
 
 const raleway = Raleway({
   weight: "700",
   subsets: ["latin"],
 });
 interface ServiceCardProps {
-  imageSrc: string;
+  img: string;
   title: string;
-  description: string;
+  subTitle: string;
+  link: string;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
-  imageSrc,
+  img: imageSrc,
   title,
-  description,
+  subTitle: description,
+  link,
 }) => {
+  const router = useRouter();
   return (
-    <div className="max-w-sm bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="relative w-full aspect-video">
+    <div
+      onClick={() => router.push(link)}
+      className="w-full bg-white rounded-md shadow-md overflow-hidden hover:shadow-xl cursor-pointer"
+    >
+      <div className="relative w-full min-h-[280px] aspect-video">
         <Image
           src={imageSrc}
           alt={title}
           layout="fill"
           objectFit="cover"
-          className="opacity-90 hover:opacity-100 transition duration-300"
+          className="lg:opacity-90 hover:opacity-100 transition duration-300"
         />
       </div>
-      <div className="p-4 text-center">
+      <div className="p-4 text-center capitalize">
         <h2 className={`${raleway.className} text-[22px] text-card_header`}>
           {title}
         </h2>
