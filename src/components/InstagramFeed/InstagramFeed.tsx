@@ -28,12 +28,12 @@ export default function InstagramFeed() {
           >
             {post.media_type === "VIDEO" ? (
               <>
-                <video
-                  src={post.media_url}
-                  className="w-full h-full object-cover "
-                  // controls={!selectedPost}
-                  // playsInline={false}
-                  poster={post?.thumbnail_url ?? ""}
+                <Image
+                  src={post?.thumbnail_url ?? ""}
+                  alt={post.caption || "Instagram Post"}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-transform duration-300 ease-in-out hover:scale-110"
                 />
               </>
             ) : (

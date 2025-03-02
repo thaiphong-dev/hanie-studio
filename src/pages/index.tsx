@@ -57,7 +57,7 @@ Studio In Quy Nhon"
       <div className="py-[50px] flex justify-center items-center">
         <ServiceSection />
       </div>
-      <div className="py-[50px] flex justify-center items-center">
+      <div className="py-[50px] flex justify-center items-center bg-bg_dark">
         <ExploreSections />
       </div>
       <SubBanner

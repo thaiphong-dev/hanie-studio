@@ -8,18 +8,18 @@ const ExploreSections = () => {
   const { data: profileData } = useInstagramProfile();
 
   return (
-    <div className="w-full lg:max-w-[1240px] space-y-[50px] px-[20px] lg:px-0 ">
-      <div className="flex justify-between items-center flex-col lg:flex-row ">
+    <div className="w-full lg:max-w-[1240px] space-y-[50px] px-[20px] lg:px-0  ">
+      <div className="flex justify-between items-center flex-col lg:flex-row  ">
         <HeadingTitle
           title={
-            <span className="text-base_color font-[600] text-[19px]">
+            <span className=" font-[600] text-[19px] text-white">
               Connect and book your look
             </span>
           }
         />
         <HeadingTitle
           title={
-            <div className="text-[32px] lg:text-[55px] text-center lg:text-right ">
+            <div className="text-[32px] lg:text-[55px] text-center lg:text-right text-white">
               Explore our latest
               <p> styles</p>
             </div>
