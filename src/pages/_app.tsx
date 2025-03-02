@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Open_Sans } from "next/font/google";
+import Footer from "@/components/Common/Footer/Footer";
 
 const openSans = Open_Sans({
   weight: ["400", "500", "600", "700"],
@@ -24,6 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <MainMenu />
 
         <Component {...pageProps} />
+        <Footer />
       </div>
     </QueryClientProvider>
   );
