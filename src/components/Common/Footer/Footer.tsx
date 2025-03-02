@@ -89,7 +89,7 @@ const Footer = () => {
         {/* Google Map */}
         <div className="flex justify-center w-auto aspect-square">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.690181569704!2d100.55309697590555!3d13.729185486679355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f5f4515b88f%3A0x1a63fefc1743b6df!2sLashley%20Studio!5e0!3m2!1sen!2sth!4v1709193836294!5m2!1sen!2sth"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.235893955029!2d109.21657847493134!3d13.764643196996339!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316f6dc4164d4271%3A0x2b0520a3900f15f8!2sHanie%20Nails%20Quy%20Nhon!5e0!3m2!1svi!2s!4v1740909990116!5m2!1svi!2s"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
