@@ -27,12 +27,15 @@ export default function InstagramFeed() {
             onClick={() => setSelectedPost(post)}
           >
             {post.media_type === "VIDEO" ? (
-              <video
-                src={post.media_url}
-                className="w-full h-full object-cover"
-                controls={!selectedPost}
-                playsInline={false}
-              />
+              <>
+                <video
+                  src={post.media_url}
+                  className="w-full h-full object-cover "
+                  // controls={!selectedPost}
+                  // playsInline={false}
+                  poster={post?.thumbnail_url ?? ""}
+                />
+              </>
             ) : (
               <Image
                 src={post.media_url}

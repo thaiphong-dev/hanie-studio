@@ -24,15 +24,15 @@ export const InstagramPostModal: React.FC<InstagramPostModalProps> = ({
       onClick={() => setSelectedPost(null)}
     >
       <div
-        className="bg-white rounded-lg relative max-w-4xl w-full max-h-[90vh] flex flex-col md:flex-row"
+        className="bg-white lg:rounded-lg relative max-w-4xl w-full h-full lg:max-h-[90vh] flex flex-col md:flex-row overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
-          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+          className="fixed top-4 right-2 text-white hover:text-active_main z-[1001]"
           onClick={() => setSelectedPost(null)}
         >
-          <X className="w-6 h-6" />
+          <X className="w-8 aspect-square" />
         </button>
 
         {/* Left Side: Media Content */}
