@@ -6,6 +6,7 @@ import HeadingSeperator from "@/components/Common/HeadingSeparator/HeadingSepara
 import InfoCard from "@/components/Common/Cards/InfoCard";
 // import ServiceCard from "@/components/Common/Cards/ServiceCard";
 import ReviewCard from "@/components/Common/Cards/ReviewCard";
+import InstagramFeed from "@/components/InstagramFeed/InstagramFeed";
 
 const UiGuide = () => {
   return (
@@ -63,6 +64,8 @@ Studio In Quy Nhon"
           review="Ashley was a real gem, I appreciate her skills and the work she does for my brows. The service was commendable and the staff is professional. I would make it a point to come visit whenever I am in town."
         />
       </div>
+
+      <InstagramFeed />
     </div>
   );
 };

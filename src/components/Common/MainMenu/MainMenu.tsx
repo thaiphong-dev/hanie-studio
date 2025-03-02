@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Layout, Menu, Select } from "antd/lib";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,7 @@ import i18n from "../../../../i18n";
 import styles from "./MainMenu.module.scss";
 import StyledButton from "../StyledButton/StyledButton";
 import { useRouter } from "next/router";
+import useDisableScroll from "@/hooks/common/useDisableScroll";
 const MainMenu = () => {
   const { t } = useTranslation();
 
@@ -47,17 +48,7 @@ const MainMenu = () => {
     i18n.changeLanguage(lng);
   };
 
-  useEffect(() => {
-    if (drawerVisible) {
-      document.body.style.overflow = "hidden"; // Chặn cuộn khi mở menu
-    } else {
-      document.body.style.overflow = "auto"; // Cho phép cuộn khi đóng menu
-    }
-
-    return () => {
-      document.body.style.overflow = "auto"; // Đảm bảo cuộn được bật lại khi component bị unmount
-    };
-  }, [drawerVisible]);
+  useDisableScroll(drawerVisible);
 
   return (
     <Layout className="w-full h-fit sticky top-0 z-[100] ">
