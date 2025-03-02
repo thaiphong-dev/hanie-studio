@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,6 +16,23 @@ export const InstagramPostModal: React.FC<InstagramPostModalProps> = ({
   setSelectedPost,
   profileData,
 }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video, idx) => {
+      if (video) {
+        if (idx === activeIndex) {
+          video.play().catch(() => {});
+          video.controls = true;
+        } else {
+          video.pause();
+          video.controls = false;
+        }
+      }
+    });
+  }, [activeIndex]);
+
   if (!selectedPost) return null;
 
   return (
@@ -36,27 +53,34 @@ export const InstagramPostModal: React.FC<InstagramPostModalProps> = ({
         </button>
 
         {/* Left Side: Media Content */}
-        <div className="relative w-full  bg-black">
+        <div className="relative w-full bg-black">
           {selectedPost?.children?.data &&
-          selectedPost?.children?.data?.length > 0 ? (
+          selectedPost?.children?.data.length > 0 ? (
             <Swiper
               pagination={true}
               modules={[Pagination]}
-              className="mySwiper w-[40vw]"
+              className="mySwiper lg:w-[40vw]"
               slidesPerView={1}
               spaceBetween={0}
+              allowTouchMove={true} // Đảm bảo có thể swipe
+              onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             >
-              {selectedPost?.children?.data?.map((child) => (
+              {selectedPost.children.data.map((child, index) => (
                 <SwiperSlide className="w-fit" key={child.id}>
                   {child.media_type === "VIDEO" ? (
                     <video
+                      ref={(el) => {
+                        if (el) videoRefs.current[index] = el;
+                      }}
                       src={child.media_url}
                       className="w-full h-full object-cover"
-                      controls
-                      autoPlay
+                      playsInline
+                      controls={index === activeIndex} // Chỉ hiện controls nếu là slide active
+                      onPointerDown={(e) => e.stopPropagation()} // Ngăn chặn thao tác chuột
+                      onTouchStart={(e) => e.stopPropagation()} // Ngăn video block swipe
                     />
                   ) : (
-                    <div className="w-full aspect-square relative lg:w-[40vw]">
+                    <div className="w-full h-full aspect-square relative lg:w-[40vw]">
                       <Image
                         src={child.media_url}
                         alt="Instagram Post"
@@ -73,6 +97,7 @@ export const InstagramPostModal: React.FC<InstagramPostModalProps> = ({
               src={selectedPost.media_url}
               className="w-full h-full object-contain"
               controls
+              playsInline
               autoPlay
             />
           ) : (
@@ -88,22 +113,24 @@ export const InstagramPostModal: React.FC<InstagramPostModalProps> = ({
         </div>
 
         {/* Right Side: Post Details */}
-        <div className="p-4 w-full  flex flex-col justify-start">
+        <div className="p-4 w-full flex flex-col justify-start">
           {/* User Info */}
           <div
             onClick={() => {
-              window.open(profileData?.profileUrl, "_blank", "noopener");
+              if (profileData?.profileUrl) {
+                window.open(profileData.profileUrl, "_blank", "noopener");
+              }
             }}
             className="flex items-center mb-2 cursor-pointer"
           >
             <Image
-              src={profileData?.profile_picture_url ?? ""} // Thay bằng avatar từ API nếu có
+              src={profileData?.profile_picture_url ?? ""}
               alt={profileData?.username ?? ""}
               width={40}
               height={40}
               className="rounded-full"
             />
-            <span className="ml-2 font-semibold text-[14px] hover:underline ">
+            <span className="ml-2 font-semibold text-[14px] hover:underline">
               {selectedPost.username}
             </span>
           </div>

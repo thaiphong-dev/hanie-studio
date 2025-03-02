@@ -20,7 +20,7 @@ export default function InstagramFeed() {
     <>
       {/* Instagram Posts */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full lg:max-w-[1100px] place-items-center">
-        {mediaData?.data.map((post) => (
+        {mediaData?.data?.slice(0, 3).map((post) => (
           <div
             key={post.id}
             className="border rounded-lg shadow-lg hover:shadow-xl transition relative w-full aspect-square overflow-hidden cursor-pointer"
