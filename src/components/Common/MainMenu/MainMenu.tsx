@@ -28,7 +28,6 @@ const MainMenu = () => {
       ],
     },
     { label: t("booking"), key: "/booking", href: "/booking" },
-    { label: t("blog"), key: "/blog", href: "/blog" },
     { label: t("contact"), key: "/contact", href: "/contact" },
   ];
 

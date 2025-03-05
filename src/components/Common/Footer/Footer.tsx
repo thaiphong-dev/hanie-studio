@@ -54,7 +54,6 @@ const Footer = () => {
       key: "/service",
     },
     { label: "booking", key: "/booking", href: "/booking" },
-    { label: "blog", key: "/blog", href: "/blog" },
     { label: "contact", key: "/contact", href: "/contact" },
   ];
   return (
