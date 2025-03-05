@@ -6,9 +6,8 @@ const raleway = Raleway({
   weight: "700",
   subsets: ["latin"],
 });
-
 interface Props {
-  content?: string;
+  content: string;
   subContent: ReactNode;
   isShowButton: boolean;
   handleClickButton?: () => void;
@@ -16,7 +15,7 @@ interface Props {
   buttontitle?: string;
 }
 
-const SubBanner: React.FC<Props> = ({
+const PageBanner: React.FC<Props> = ({
   content,
   subContent,
   isShowButton,
@@ -26,7 +25,7 @@ const SubBanner: React.FC<Props> = ({
 }) => {
   return (
     <div
-      className="relative flex items-center justify-center h-[50vh]"
+      className="relative flex items-center justify-center h-[40vh]"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundColor: "#f7eff0",
@@ -39,17 +38,17 @@ const SubBanner: React.FC<Props> = ({
         className="absolute top-0 right-0 bottom-0 left-0 pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(69, 44, 47, 0.68), rgba(69, 44, 47, 0.58))",
+            "linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55))",
           content: '""',
         }}
       ></div>
       <div className="text-center relative flex flex-col justify-center items-center space-y-[20px] ">
         <div
-          className={`${raleway.className} text-white leading-[1.2] text-[30px] lg:text-[34px] font-[700] w-full px-[20px] lg:px-0 lg:w-[70%]`}
+          className={`${raleway.className} text-white capitalize leading-[1.2] text-[48px] lg:text-[34px] font-[700] w-full px-[20px] lg:px-0 lg:w-[70%]`}
         >
           {content}
         </div>
-        <div className="text-base_color text-[19px]">{subContent}</div>
+        <div className="text-white text-[19px]">{subContent}</div>
         {isShowButton && (
           <StyledButton
             handleClick={handleClickButton ?? (() => {})}
@@ -61,4 +60,4 @@ const SubBanner: React.FC<Props> = ({
   );
 };
 
-export default SubBanner;
+export default PageBanner;

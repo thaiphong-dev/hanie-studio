@@ -58,7 +58,7 @@ const Footer = () => {
     { label: "contact", key: "/contact", href: "/contact" },
   ];
   return (
-    <footer className="bg-black text-white py-8 px-4 flex flex-col justify-center items-center">
+    <footer className=" bg-black text-white py-8 px-4 flex flex-col justify-center items-center">
       <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-8  place-items-center">
         {/* Contact Section */}
         <div className=" w-full space-y-[10px] flex flex-col justify-center items-center min-w-fit">
