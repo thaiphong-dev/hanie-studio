@@ -20,7 +20,79 @@ body {
   border-bottom: none !important;
 }
 
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
 
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+@layer components {
+  .calendar-container {
+    @apply overflow-hidden rounded-xl bg-white shadow-sm border border-border transition-all duration-300;
+  }
+  
+  .calendar-cell {
+    @apply cursor-pointer relative h-10 w-10 text-center text-sm font-medium transition-all duration-200 ease-in-out;
+  }
+  
+  .calendar-cell-content {
+    @apply flex h-full w-full items-center justify-center rounded-full transition-all;
+  }
+  
+  .calendar-cell.selected .calendar-cell-content {
+    @apply bg-active_main text-white  hover:!bg-active_main ;
+  }
+  
+  .calendar-cell.today:not(.selected) .calendar-cell-content {
+    @apply border border-active_main text-foreground;
+  }
+  
+  .calendar-cell:not(.disabled):hover .calendar-cell-content {
+    @apply bg-active_main/10;
+  }
+  
+  .calendar-cell.disabled {
+    @apply text-muted-foreground opacity-50;
+  }
+  
+  .time-slot {
+    @apply flex items-center justify-center px-3 py-2 border border-border rounded-lg text-foreground transition-all duration-200 hover:border-active_main hover:text-active_main cursor-pointer;
+  }
+  
+  .time-slot.selected {
+    @apply bg-active_main text-white border-active_main;
+  }
+}
 
 /* 
 @media (prefers-color-scheme: dark) {

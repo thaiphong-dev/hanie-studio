@@ -7,14 +7,7 @@ import React from "react";
 import { Licorice } from "next/font/google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
-// import {
-//   faLine,
-//   faWhatsapp,
-//   faInstagram,
-//   faFacebook,
-//   faTiktok,
-//   faGoogle,
-// } from "@fortawesome/free-brands-svg-icons";
+
 const licorice = Licorice({
   weight: "400",
   subsets: ["latin"],

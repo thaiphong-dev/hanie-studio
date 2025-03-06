@@ -30,7 +30,7 @@ const ReviewCard: FC<ReviewCardProps> = ({
         />
         <div>
           <p className="font-semibold text-gray-900">{name}</p>
-          <p className="text-sm text-gray-500">{timeAgo}</p>
+          <p className=" text-gray-500">{timeAgo}</p>
         </div>
       </div>
       <div className="mt-2 flex gap-1">
