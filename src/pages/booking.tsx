@@ -373,6 +373,8 @@ const Booking = () => {
     }
   };
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     if (step === 1) {
       setIsShowCalendar(false);
     } else if (step === 2) {
@@ -380,7 +382,6 @@ const Booking = () => {
     } else {
       setIsShowCalendar(false);
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [step]);
 
   useEffect(() => {
@@ -500,7 +501,7 @@ const Booking = () => {
           }}
           className="fixed bottom-0 right-0 left-0 bg-white z-[90] lg:hidden rounded-3xl shadow-[0px_-4px_10px_rgba(0,0,0,0.1)]"
         >
-          <div className="w-full place-items-center pt-[5px] transition-transform duration-300">
+          <div className="w-full flex justify-center items-center place-items-center pt-[5px] transition-transform duration-300">
             <ChevronUp
               className={`text-[18px] transform transition-transform ${
                 isExpandSummary ? "rotate-180" : "rotate-0"
