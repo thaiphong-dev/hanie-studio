@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PageBanner from "@/components/Common/Banner/PageBanner";
 import SubBanner from "@/components/Common/Banner/SubBanner";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Licorice } from "next/font/google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +12,11 @@ import { ServiceDetail } from "@/types/ServiceType";
 import { useTranslation } from "react-i18next";
 import { CalendarCheck2, ArrowLeft, ChevronUp } from "lucide-react";
 import CalendarSelector from "@/components/Common/Calendar/CalendarSelector";
-// import { Footer } from "antd/es/layout/layout";
+import Footer from "@/components/Common/Footer/Footer";
+import useDisableScroll from "@/hooks/common/useDisableScroll";
+import LogoBack from "@/components/Booking/logoBack";
+import { useRouter } from "next/router";
+import MainMenu from "@/components/Common/MainMenu/MainMenu";
 
 const licorice = Licorice({
   weight: "400",
@@ -326,6 +331,7 @@ const Booking = () => {
       zipCode: "140620",
     },
   };
+  const router = useRouter();
   const { t } = useTranslation();
   const [servicesSelected, setServicesSelected] = useState<ServiceDetail[]>([]);
   const [selectedDateTime, setSelectedDateTime] = useState<{
@@ -350,17 +356,68 @@ const Booking = () => {
     );
   };
   const [isShowCalendar, setIsShowCalendar] = useState(false);
-  return (
-    <div className="pb-[100px] lg:pb-0">
-      <PageBanner
-        bgImage="/images/banners/about.webp"
-        isShowButton={false}
-        content="booking"
-        subContent="Book your personalized beauty experience now"
-      />
+  const [isExpandSummary, setIsExpandSummary] = useState(false);
+  const [step, setStep] = useState(1);
+  const stepTitle = useMemo(() => {
+    return step === 2
+      ? t("Select Date time")
+      : step === 3
+      ? t("Summary")
+      : undefined;
+  }, [step]);
+  const handleBackStep = () => {
+    if (step === 1) {
+      router.back();
+    } else {
+      setStep((prev) => prev - 1);
+    }
+  };
+  useEffect(() => {
+    if (step === 1) {
+      setIsShowCalendar(false);
+    } else if (step === 2) {
+      setIsShowCalendar(true);
+    } else {
+      setIsShowCalendar(false);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step]);
 
-      <div className="space-y-[50px] pt-[50px] pb-[50px]">
-        <div className="space-y-[100px] w-full place-items-center ] ">
+  useEffect(() => {
+    if (servicesSelected?.length === 0) {
+      setSelectedDateTime({
+        date: new Date(),
+        time: null,
+      });
+      handleCloseCalendar();
+      setIsExpandSummary(false);
+    }
+  }, [servicesSelected]);
+
+  useDisableScroll(isExpandSummary);
+  const handleShowCalendar = () => {
+    setStep(2);
+  };
+  const handleCloseCalendar = () => {
+    setStep(1);
+  };
+  return (
+    <div className="pb-[100px] lg:pb-0 ">
+      <div className="hidden lg:block">
+        <MainMenu />
+        <PageBanner
+          bgImage="/images/banners/about.webp"
+          isShowButton={false}
+          content="booking"
+          subContent="Book your personalized beauty experience now"
+        />
+      </div>
+      <div className="lg:hidden">
+        <LogoBack handleBack={handleBackStep} title={stepTitle} />
+      </div>
+
+      <div className="space-y-[50px] pt-[30px] lg:pt-[50px] pb-[50px]">
+        <div className="space-y-[100px] w-full place-items-center  ">
           <div className="flex flex-col lg:flex-row lg:space-x-[50px] justify-between items-start w-full max-w-[1240px] px-[20px] lg:px-0">
             {/* Left panel - Services */}
             <div className="w-full lg:w-2/3 overflow-y-auto ">
@@ -390,7 +447,7 @@ const Booking = () => {
                   {!isShowCalendar ? (
                     <div
                       onClick={() => {
-                        setIsShowCalendar(true);
+                        handleShowCalendar();
                       }}
                       className="cursor-pointer flex justify-center space-x-[10px] items-center w-full text-center h-fit bg-active_main border-active_main text-white hover:bg-active_hover py-[3px] lg:py-[6px] px-[18px] text-[17px] font-[500] rounded-[5px]"
                     >
@@ -406,7 +463,7 @@ const Booking = () => {
                     <div className="flex justify-center items-center space-x-[10px]">
                       <div
                         onClick={() => {
-                          setIsShowCalendar(false);
+                          handleCloseCalendar();
                         }}
                         className="cursor-pointer flex justify-center space-x-[10px] items-center w-full text-center h-fit  hover:border-active_hover hover:text-active_hover text-bg_dark border border-bg_dark py-[3px] lg:py-[6px] px-[18px] text-[17px] font-[500] rounded-[5px]"
                       >
@@ -417,7 +474,7 @@ const Booking = () => {
                       </div>
                       <div
                         onClick={() => {
-                          setIsShowCalendar(true);
+                          handleShowCalendar();
                         }}
                         className="cursor-pointer flex justify-center space-x-[10px] items-center w-full text-center h-fit bg-active_main border-active_main text-white hover:bg-active_hover py-[3px] lg:py-[6px] px-[18px] text-[17px] font-[500] rounded-[5px]"
                       >
@@ -432,12 +489,31 @@ const Booking = () => {
             </div>
           </div>
         </div>
-        <div className="fixed bottom-0 right-0 left-0 bg-white z-[100] lg:hidden shadow-transparent">
-          <div className="w-full place-items-center">
-            <ChevronUp className="text-[18px]" />
+        <div
+          onClick={() => {
+            setIsExpandSummary((prev) => !prev);
+          }}
+          style={{
+            maxHeight: isExpandSummary ? "500px" : "145px", // Giới hạn chiều cao
+            transition: "max-height 0.4s ease-in-out", // Mượt hơn với ease-in-out
+            overflow: "hidden", // Tránh nội dung tràn ra
+          }}
+          className="fixed bottom-0 right-0 left-0 bg-white z-[90] lg:hidden rounded-3xl shadow-[0px_-4px_10px_rgba(0,0,0,0.1)]"
+        >
+          <div className="w-full place-items-center pt-[5px] transition-transform duration-300">
+            <ChevronUp
+              className={`text-[18px] transform transition-transform ${
+                isExpandSummary ? "rotate-180" : "rotate-0"
+              }`}
+            />
           </div>
           <SummaryInfo
+            setIsExpandSummary={setIsExpandSummary}
+            isShowCalendar={isShowCalendar}
+            isExpandSummary={isExpandSummary}
+            isMobile={true}
             handleClickService={handleAddorRemoveService}
+            handleShowCalendar={handleShowCalendar}
             data={servicesSelected}
             selectedDateTime={selectedDateTime}
           />
@@ -462,8 +538,19 @@ const Booking = () => {
           }
           isShowButton={false}
         />
-        {/* <Footer /> */}
       </div>
+      <div className="hidden lg:block">
+        <Footer />
+      </div>
+      <div
+        style={{
+          opacity: isExpandSummary ? 1 : 0,
+          visibility: isExpandSummary ? "visible" : "hidden",
+          transition: "all 0.3s ease",
+        }}
+        onClick={() => setIsExpandSummary(false)}
+        className="fixed top-0 right-0 bottom-0 left-0  bg-black/50 z-[80]"
+      ></div>
     </div>
   );
 };

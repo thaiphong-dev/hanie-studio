@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import CalendarDatePicker from "./CalendarDatePicker";
 import TimeSlotSelector from "./TimeSlotSelector";
-import { format } from "date-fns";
 
 interface Props {
   handeChangeTimeBooking: (date: Date, time: string | null) => void;
@@ -15,32 +15,32 @@ const CalendarSelector: React.FC<Props> = ({ handeChangeTimeBooking }) => {
   }, [selectedDate, selectedTime]);
 
   // Store selected date-time combinations
-  const [selectedDateTimes, setSelectedDateTimes] = useState<
-    Record<string, string | null>
-  >({});
+  // const [selectedDateTimes, setSelectedDateTimes] = useState<
+  //   Record<string, string | null>
+  // >({});
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
-
+    setSelectedTime(null);
     // Check if we have a saved time for this date
-    const dateKey = format(date, "yyyy-MM-dd");
-    const savedTime = selectedDateTimes[dateKey] || null;
-    setSelectedTime(savedTime);
+    // const dateKey = format(date, "yyyy-MM-dd");
+    // const savedTime = selectedDateTimes[dateKey] || null;
+    // setSelectedTime(savedTime);
   };
 
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time);
 
     // Save the selected time for this date
-    const dateKey = format(selectedDate, "yyyy-MM-dd");
-    setSelectedDateTimes((prev) => ({
-      ...prev,
-      [dateKey]: time,
-    }));
+    // const dateKey = format(selectedDate, "yyyy-MM-dd");
+    // setSelectedDateTimes((prev) => ({
+    //   ...prev,
+    //   [dateKey]: time,
+    // }));
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 p-6 max-w-4xl mx-auto">
+    <div className="flex flex-col lg:flex-row gap-8 py-6 max-w-4xl mx-auto">
       <div className="flex-none">
         <CalendarDatePicker
           selectedDate={selectedDate}

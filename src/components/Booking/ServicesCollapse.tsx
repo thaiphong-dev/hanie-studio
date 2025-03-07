@@ -35,7 +35,7 @@ const ServicesCollapse: React.FC<ServiceAccordionProps> = ({
   //   };
 
   return (
-    <div className="w-full animate-fadeIn text-gray-500 space-y-[30px] text-[18px] ">
+    <div className="w-full animate-fadeIn text-gray-500 space-y-[30px] text-[16px] lg:text-[18px] ">
       {categories.map((category) => (
         <div key={category.id} className="mb-2 cursor-pointer  ">
           <div
@@ -51,7 +51,7 @@ const ServicesCollapse: React.FC<ServiceAccordionProps> = ({
           </div>
 
           {expandedCategories.includes(category.id) && (
-            <div className="animate-slideUp text-[16px] w-full text-bg_dark">
+            <div className="animate-slideUp text-[14px] lg:text-[16px] w-full text-bg_dark">
               {category.services.map((service) => (
                 <div
                   key={service.id}

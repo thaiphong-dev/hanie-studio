@@ -50,8 +50,8 @@ const MainMenu = () => {
   useDisableScroll(drawerVisible);
 
   return (
-    <Layout className="w-full h-fit sticky top-0 z-[100] ">
-      <Header className="  bg-white w-full h-full py-[5px] !px-[20px] flex justify-center items-center pt-[40px] lg:pt-0 ">
+    <Layout className="w-full h-fit sticky top-0 z-[50]">
+      <Header className="bg-white w-full h-full py-[5px] !px-[20px] flex justify-center items-center pt-[40px] lg:pt-0 ">
         <div className="flex justify-between items-center lg:max-w-[1240px]  w-full">
           <div
             onClick={() => router.push("/")}
