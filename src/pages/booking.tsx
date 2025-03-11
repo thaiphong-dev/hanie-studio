@@ -8,7 +8,7 @@ import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import ServicesCollapse from "@/components/Booking/ServicesCollapse";
 import BusinessInfo from "@/components/Booking/BusinessInfo";
 import SummaryInfo from "@/components/Booking/SummaryInfo";
-import { ServiceDetail } from "@/types/ServiceType";
+import { ServiceCategory } from "@/types/ServiceType";
 import { useTranslation } from "react-i18next";
 import { CalendarCheck2, ArrowLeft, ChevronUp } from "lucide-react";
 import CalendarSelector from "@/components/Common/Calendar/CalendarSelector";
@@ -333,7 +333,9 @@ const Booking = () => {
   };
   const router = useRouter();
   const { t } = useTranslation();
-  const [servicesSelected, setServicesSelected] = useState<ServiceDetail[]>([]);
+  const [catogoriesSelected, setCatogoriesSelected] = useState<
+    ServiceCategory[]
+  >([]);
   const [selectedDateTime, setSelectedDateTime] = useState<{
     date: Date;
     time: string | null;
@@ -348,8 +350,8 @@ const Booking = () => {
       time,
     });
   };
-  const handleAddorRemoveService = (service: ServiceDetail) => {
-    setServicesSelected((prev) =>
+  const handleAddorRemoveService = (service: ServiceCategory) => {
+    setCatogoriesSelected((prev) =>
       prev?.map((x) => x?.id).includes(service?.id)
         ? prev.filter((p) => p.id !== service?.id)
         : [...prev, service]
@@ -385,7 +387,7 @@ const Booking = () => {
   }, [step]);
 
   useEffect(() => {
-    if (servicesSelected?.length === 0) {
+    if (catogoriesSelected?.length === 0) {
       setSelectedDateTime({
         date: new Date(),
         time: null,
@@ -393,7 +395,7 @@ const Booking = () => {
       handleCloseCalendar();
       setIsExpandSummary(false);
     }
-  }, [servicesSelected]);
+  }, [catogoriesSelected]);
 
   useDisableScroll(isExpandSummary);
   const handleShowCalendar = () => {
@@ -413,6 +415,7 @@ const Booking = () => {
           subContent="Book your personalized beauty experience now"
         />
       </div>
+
       <div className="lg:hidden">
         <LogoBack handleBack={handleBackStep} title={stepTitle} />
       </div>
@@ -428,7 +431,7 @@ const Booking = () => {
                 />
               ) : (
                 <ServicesCollapse
-                  servicesSelected={servicesSelected}
+                  catogoriesSelected={catogoriesSelected}
                   categories={serviceCategories}
                   handleClickService={handleAddorRemoveService}
                 />
@@ -438,11 +441,11 @@ const Booking = () => {
             {/* Right panel - Business Info  */}
             <div className="w-full lg:w-1/3 space-y-[30px] hidden lg:block ">
               <BusinessInfo {...businessInfo} />
-              {servicesSelected?.length > 0 && (
+              {catogoriesSelected?.length > 0 && (
                 <>
                   <SummaryInfo
-                    handleClickService={handleAddorRemoveService}
-                    data={servicesSelected}
+                    handleClickCategory={handleAddorRemoveService}
+                    data={catogoriesSelected}
                     selectedDateTime={selectedDateTime}
                   />
                   {!isShowCalendar ? (
@@ -513,9 +516,9 @@ const Booking = () => {
             isShowCalendar={isShowCalendar}
             isExpandSummary={isExpandSummary}
             isMobile={true}
-            handleClickService={handleAddorRemoveService}
+            handleClickCategory={handleAddorRemoveService}
             handleShowCalendar={handleShowCalendar}
-            data={servicesSelected}
+            data={catogoriesSelected}
             selectedDateTime={selectedDateTime}
           />
         </div>

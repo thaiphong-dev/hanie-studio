@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp, ChevronRight } from "lucide-react";
 import { formatPrice } from "../../../utils/format";
-import { ServiceCategory, ServiceDetail } from "@/types/ServiceType";
+import { ServiceCategory } from "@/types/ServiceType";
+import { useTranslation } from "react-i18next";
 
 interface ServiceAccordionProps {
   categories: ServiceCategory[];
-  handleClickService: (service: ServiceDetail) => void;
-  servicesSelected: ServiceDetail[];
+  catogoriesSelected: ServiceCategory[];
+  handleClickService: (service: ServiceCategory) => void;
 }
 const ServicesCollapse: React.FC<ServiceAccordionProps> = ({
   categories,
   handleClickService,
-  servicesSelected,
+  catogoriesSelected,
 }) => {
   const [expandedCategories, setExpandedCategories] = useState<string[]>([
     categories?.[0]?.id,
@@ -33,21 +34,46 @@ const ServicesCollapse: React.FC<ServiceAccordionProps> = ({
   //         : [...prev, serviceId]
   //     );
   //   };
-
+  const { t } = useTranslation();
   return (
     <div className="w-full animate-fadeIn text-gray-500 space-y-[30px] text-[16px] lg:text-[18px] ">
       {categories.map((category) => (
-        <div key={category.id} className="mb-2 cursor-pointer  ">
+        <div key={category.id} className="mb-2 cursor-pointer group  ">
           <div
-            className="service-item font-medium flex justify-between items-center"
+            className=" service-item font-medium flex justify-between items-center"
             onClick={() => toggleCategory(category.id)}
           >
-            <span className=" uppercase tracking-wider">{category.name}</span>
-            {expandedCategories.includes(category.id) ? (
-              <ChevronUp size={22} />
-            ) : (
-              <ChevronDown size={22} />
-            )}
+            <span className="uppercase tracking-wider">{category.name}</span>
+            <div className="flex justify-end items-center space-x-[20px]">
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClickService(category);
+                }}
+                style={{
+                  color: catogoriesSelected
+                    ?.map((x) => x.id)
+                    .includes(category.id)
+                    ? "#cc3244"
+                    : "#e48f99",
+                  borderColor: catogoriesSelected
+                    ?.map((x) => x.id)
+                    .includes(category.id)
+                    ? "#ffff"
+                    : "#e48f99",
+                }}
+                className="opacity-100 lg:opacity-0 group-hover:opacity-100  uppercase text-[14px] cursor-pointer border-active_main text-active_main border p-2 hover:bg-active_main hover:text-white rounded-full"
+              >
+                {catogoriesSelected?.map((x) => x.id).includes(category.id)
+                  ? t("ordered service")
+                  : t("order service")}
+              </div>
+              {expandedCategories.includes(category.id) ? (
+                <ChevronUp size={22} />
+              ) : (
+                <ChevronDown size={22} />
+              )}
+            </div>
           </div>
 
           {expandedCategories.includes(category.id) && (
@@ -55,17 +81,10 @@ const ServicesCollapse: React.FC<ServiceAccordionProps> = ({
               {category.services.map((service) => (
                 <div
                   key={service.id}
-                  onClick={() => handleClickService(service)}
+                  // onClick={() => handleClickService(service)}
                   className="w-full my-[10px] pl-[20px] cursor-pointer "
                 >
                   <div
-                    style={{
-                      borderColor: servicesSelected
-                        ?.map((x) => x?.id)
-                        ?.includes(service?.id)
-                        ? "#e48f99"
-                        : "",
-                    }}
                     className="p-4 border-[1px] text hover:border-black rounded-lg w-full flex justify-between items-center hover:bg-[#fafafa]"
                     // onClick={() => toggleService(service.id)}
                   >
